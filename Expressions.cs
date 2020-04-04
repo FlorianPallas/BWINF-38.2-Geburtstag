@@ -54,7 +54,7 @@ namespace Geburtstag
 
         public override string ToString()
         {
-            return "(" + A.ToString() + OperationString + B.ToString() + ")";
+            return "(" + A.ToString() + " " + OperationString + " " + B.ToString() + ")";
         }
     }
 
@@ -139,7 +139,7 @@ namespace Geburtstag
 
         public override string ToString()
         {
-            return "(" + A.ToString() + OperationString + ")";
+            return A.ToString() + OperationString;
         }
     }
 }
