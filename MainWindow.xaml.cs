@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Security.RightsManagement;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,6 +15,7 @@ namespace Geburtstag
         long TargetNumber;
         int Digit;
         bool SolutionFound;
+        bool UseModulo;
         Stopwatch Timer;
         SortedDictionary<long, byte> Calculated;
         List<List<Expression>> Expressions;
@@ -21,7 +23,8 @@ namespace Geburtstag
         public MainWindow()
         {
             InitializeComponent();
-            GroupBoxSolution.Visibility = Visibility.Collapsed;
+            GroupBoxSolutionA.Visibility = Visibility.Collapsed;
+            GroupBoxSolutionB.Visibility = Visibility.Collapsed;
 
             Timer = new Stopwatch();
             Calculated = new SortedDictionary<long, byte>();
@@ -97,6 +100,8 @@ namespace Geburtstag
                 MessageBox.Show("Diese Ziffer ist ungültig.", "Ungültige Eingabe", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+
+            UseModulo = CheckBoxModulo.IsChecked == true;
         }
 
         public void AddFactorialExpressions(int Index)
@@ -156,6 +161,13 @@ namespace Geburtstag
             {
                 SaveExpression(Index, new PowerExpression(B, A));
             }
+
+            // Modulo
+            if (UseModulo)
+            {
+                SaveExpression(Index, new ModuloExpression(A, B));
+                SaveExpression(Index, new ModuloExpression(B, A));
+            }
         }
 
         private void SaveExpression(int Index, Expression A)
@@ -181,17 +193,22 @@ namespace Geburtstag
         private void Solution(Expression Solution, int DigitCount)
         {
             Timer.Stop();
-            LabelSolution.Content = Solution.ToString() + " = " + Solution.Value;
-            LabelDigitCount.Content = DigitCount.ToString();
-            LabelTimeElapsed.Content = Timer.Elapsed.ToString(@"mm\:ss\.fff");
-            GroupBoxSolution.Visibility = Visibility.Visible;
-            SolutionFound = true;
-        }
+            if(Mode == EMode.TaskA)
+            {
+                LabelSolutionA.Content = Solution.ToString() + " = " + Solution.Value;
+                LabelDigitCountA.Content = DigitCount.ToString();
+                LabelTimeElapsedA.Content = Timer.Elapsed.ToString(@"mm\:ss\.fff");
+                GroupBoxSolutionA.Visibility = Visibility.Visible;
+            }
+            else if (Mode == EMode.TaskB)
+            {
+                LabelSolutionB.Content = Solution.ToString() + " = " + Solution.Value;
+                LabelDigitCountB.Content = DigitCount.ToString();
+                LabelTimeElapsedB.Content = Timer.Elapsed.ToString(@"mm\:ss\.fff");
+                GroupBoxSolutionB.Visibility = Visibility.Visible;
+            }
 
-        private void Inputs_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (GroupBoxSolution == null) { return; }
-            GroupBoxSolution.Visibility = Visibility.Collapsed;
+            SolutionFound = true;
         }
 
         private void ButtonBerechnenA_Click(object sender, RoutedEventArgs e)
