@@ -4,6 +4,7 @@ namespace Geburtstag
 {
     public static class Validation
     {
+        private static double Epsilon = 10E-15;
         private static double LimitLog = Math.Log(long.MaxValue);
         private static double LimitLogLog = Math.Log(Math.Log(long.MaxValue));
 
@@ -19,7 +20,7 @@ namespace Geburtstag
 
         public static bool ValidProduct(long A, long B)
         {
-            return LimitLog >= Math.Log(A) + Math.Log(B);
+            return LimitLog + Epsilon >= Math.Log(A) + Math.Log(B);
         }
 
         public static bool ValidQuotient(long A, long B)
@@ -29,7 +30,7 @@ namespace Geburtstag
 
         public static bool ValidPower(long A, long B)
         {
-            return LimitLogLog >= Math.Log(A) + Math.Log(Math.Log(B));
+            return LimitLogLog + Epsilon >= Math.Log(A) + Math.Log(Math.Log(B));
         }
 
         public static bool ValidFactorial(long A)
