@@ -42,12 +42,26 @@ namespace Geburtstag
             // Edge cases
             if (TargetNumber == 0)
             {
-                Solution(new ConstantExpression(0), 0);
+                Solution(new SubtractExpression(new ConstantExpression(Digit), new ConstantExpression(Digit)), 1);
+                return;
             }
 
             if (Digit == TargetNumber)
             {
                 Solution(new ConstantExpression(TargetNumber), 1);
+                return;
+            }
+
+            bool Same = true;
+            foreach(char C in TargetNumber.ToString())
+            {
+                if(C.ToString() != Digit.ToString()) { Same = false; break; }
+            }
+
+            if(Same)
+            {
+                Solution(new ConstantExpression(TargetNumber), TargetNumber.ToString().Length);
+                return;
             }
 
             // Calculation
@@ -57,7 +71,7 @@ namespace Geburtstag
             {
                 Expressions.Add(new List<Expression>());
 
-                // Calculate 'Base' | X, XX, XXX, XXXX
+                // Calculate 'Base' | 1, 11, 111, 1111
                 Base = Math.Pow(10, I) * Digit + Base;
                 Expressions[I].Add(new ConstantExpression((long)Base));
 
@@ -185,7 +199,7 @@ namespace Geburtstag
             // Ignore duplicates
             if (!Calculated.ContainsKey(A.Value))
             {
-                Calculated.Add(A.Value, (byte)Index);
+                Calculated.Add(A.Value, 0);
                 Expressions[Index].Add(A);
             }
         }
