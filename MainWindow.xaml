@@ -30,7 +30,7 @@
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <Label Width="100" Content="Term:" />
-                    <Label Name="LabelSolutionA" Padding="5" />
+                    <TextBox IsReadOnly="True" MinWidth="200" Name="LabelSolutionA" Padding="5" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="100" Content="Ziffer Anzahl:" />
@@ -46,7 +46,7 @@
             <StackPanel Margin="10">
                 <StackPanel Orientation="Horizontal">
                     <Label Width="100" Content="Term:" />
-                    <Label Name="LabelSolutionB" Padding="5" />
+                    <TextBox IsReadOnly="True" MinWidth="200" Name="LabelSolutionB" Padding="5" />
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <Label Width="100" Content="Ziffer Anzahl:" />

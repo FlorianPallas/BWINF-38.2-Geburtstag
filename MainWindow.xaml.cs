@@ -209,14 +209,14 @@ namespace Geburtstag
             Timer.Stop();
             if(Mode == EMode.TaskA)
             {
-                LabelSolutionA.Content = Solution.ToString() + " = " + Solution.Value;
+                LabelSolutionA.Text = Solution.ToString();
                 LabelDigitCountA.Content = DigitCount.ToString();
                 LabelTimeElapsedA.Content = Timer.Elapsed.ToString(@"mm\:ss\.fff");
                 GroupBoxSolutionA.Visibility = Visibility.Visible;
             }
             else if (Mode == EMode.TaskB)
             {
-                LabelSolutionB.Content = Solution.ToString() + " = " + Solution.Value;
+                LabelSolutionB.Text = Solution.ToString();
                 LabelDigitCountB.Content = DigitCount.ToString();
                 LabelTimeElapsedB.Content = Timer.Elapsed.ToString(@"mm\:ss\.fff");
                 GroupBoxSolutionB.Visibility = Visibility.Visible;
